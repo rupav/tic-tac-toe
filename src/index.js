@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
 
+const lines = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
 function calculateWinner(squares){
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
   for (let i=0; i<lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
@@ -22,30 +23,68 @@ function calculateWinner(squares){
   return null;
 }
 
+function isDraw(squares){
+  for (let i=0; i<9; i++){
+    if(!squares[i]) return false;
+  }
+  return true;
+}
+
+function cellStatus(squares){
+  let table = Array(9).fill({
+    backgroundColor: 'white'
+  });
+  if(calculateWinner(squares)){
+    for (let i=0; i<lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
+        table[a] = table[b] = table[c] = {
+          backgroundColor: 'green'
+        }
+        break;
+      }
+    }
+  } else if (isDraw(squares)) {
+    for(let i=0; i<9; i++){
+      table[i] = {...table[i], backgroundColor: 'blue'};
+    }
+  }
+  return table;
+}
+
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
+    <button
+      className="square"
+      onClick={props.onClick}
+      style = {props.status}
+      >
+        {props.value}
     </button>
   );
 }
 
 class Board extends React.Component {
 
-  renderSquare(i) {
+  renderSquare(i, status) {
     return(
-     <Square value={this.props.squares[i]}
-        onClick = {()=>this.props.onClick(i)}
+     <Square 
+      value={this.props.squares[i]}
+      status={status}
+      onClick = {()=>this.props.onClick(i)}
      />
    );
   }
 
   createTable  = () => {
-    let table = []
+    let z = cellStatus(this.props.squares);
+    let table = [];
+    let id_;
     for(let i=0; i<3; i++){
       let row = []
       for(let j=0; j<3; j++){
-        row.push(<td>{this.renderSquare(3*i + j)}</td>)
+        id_ = 3*i + j;
+        row.push(<td>{this.renderSquare(id_, z[id_])}</td>)
       }
       table.push(<tr className="board-row">{row}</tr>)
     }
@@ -108,6 +147,8 @@ class Game extends React.Component {
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
+    } else if (isDraw(current.squares)) {
+      status = 'Its a Draw!';
     } else {
       status = 'Next player: '+ (this.state.xIsNext?'X':'O');
     }
@@ -134,7 +175,7 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div className="game-status">{status}</div>
           <ol>{moves}</ol>
         </div>
       </div>

@@ -13,10 +13,6 @@ ol, ul {
   display: table;
 }
 
-.status {
-  margin-bottom: 10px;
-}
-
 .square {
   background: #fff;
   border: 1px solid #999;
@@ -33,7 +29,7 @@ ol, ul {
 }
 
 .square:focus {
-  outline: none;
+  outline: 0.5px inset blue;
 }
 
 .kbd-navigation .square:focus {
@@ -47,4 +43,9 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+.game-status {
+  margin-bottom: 10px;
+  font-weight: bold;
 }
