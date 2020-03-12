@@ -31,33 +31,42 @@ function isDraw(squares){
 }
 
 function cellStatus(squares){
-  let table = Array(9).fill({
-    backgroundColor: 'white'
-  });
+  let table = Array(9).fill(null);
   if(calculateWinner(squares)){
     for (let i=0; i<lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
-        table[a] = table[b] = table[c] = {
-          backgroundColor: 'green'
-        }
+        table[a] = table[b] = table[c] = 1;
         break;
       }
     }
   } else if (isDraw(squares)) {
     for(let i=0; i<9; i++){
-      table[i] = {...table[i], backgroundColor: 'blue'};
+      table[i] = 0;
     }
   }
   return table;
 }
 
+function getSquareClass(status){
+  switch(status){
+    case 0: {
+      return 'draw-square'
+    }
+    case 1: {
+      return 'winning-square'
+    }
+    default: {
+      return 'square'
+    }
+  }
+}
+
 function Square(props) {
   return (
     <button
-      className="square"
+      className={getSquareClass(props.status)}
       onClick={props.onClick}
-      style = {props.status}
       >
         {props.value}
     </button>

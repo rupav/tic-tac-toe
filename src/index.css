@@ -5,6 +5,7 @@ body {
 
 ol, ul {
   padding-left: 30px;
+  list-style-type: square;
 }
 
 .board-row:after {
@@ -26,6 +27,36 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+}
+
+.winning-square {
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;  
+  background-image: linear-gradient(to right, rgba(0, 250, 0, 0), rgba(0, 255, 0, 1));
+}
+
+.draw-square {
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;  
+  background-image: linear-gradient(to right, rgba(0, 0, 255, 0), rgba(0, 0, 255, 1));
 }
 
 .square:focus {
