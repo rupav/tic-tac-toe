@@ -43,7 +43,7 @@ def printValueFunction(values):
 	for val in values:
 		print(val,"\n")
 
-def updateEstimateValueOfS(s,sPrime):
+def updateEstimateValueOfS(s, sPrime):
 	V[s] = V[s] + alpha*(V[sPrime] - V[s])       #why not chosen gamma?
 
 def switch_player(player):
