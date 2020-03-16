@@ -78,7 +78,7 @@ def greedyMove(board, states, V):
 
     for i in range(len(possibleMoves)):
         board[i] = 1
-        if isWinner(board[i]) == 1:
+        if isWinner(board) == 1:
             return i, -1
         idx = states.index(board)
         val = V[idx]
