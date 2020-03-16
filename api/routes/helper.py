@@ -67,7 +67,7 @@ def isWinner(board):
 def greedyMove(board, states, V):
     maxValue = 0
     maxIndex = 0
-    possibleMoves = getListOfBlankTiles(board)
+    possibleMoves = getListOfBlankTiles(board)    
     nextMove = possibleMoves.pop()      #here we assumed any 1 move from all possible moves!
     board[nextMove] = 1
     if isWinner(board) == 1:
@@ -76,7 +76,7 @@ def greedyMove(board, states, V):
     maxValue = V[maxIndex]
     board[nextMove] = 0                 #setting again to zero until we find the real one!
 
-    for i in range(len(possibleMoves)):
+    for i in possibleMoves:
         board[i] = 1
         if isWinner(board) == 1:
             return i, -1

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'
+import axios from 'axios';
+import './index.css';
 
 const lines = [
   [0, 1, 2],
@@ -138,9 +139,47 @@ class Game extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
-
-
   }
+
+  nextMove(){
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();    
+    
+    const url = "/api/next_move";
+    let mapped_squares = squares.map(square => {
+      switch(square){
+        case 'X': {
+          return 1
+        }
+        case 'O': {
+          return 2
+        }
+        default: {
+          return 0
+        }
+      }
+    });
+
+    if (this.state.xIsNext) {
+      axios.post(url, {board: mapped_squares}).then((resp) => {
+        console.log(resp.data.next_move);
+        squares[resp.data.next_move] = this.state.xIsNext?'X':'O';
+        this.setState({
+          history: history.concat([{
+            squares: squares,
+          }]),
+          stepNumber: history.length,
+          xIsNext: !this.state.xIsNext,
+        });        
+        
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else {
+      return;
+    }
+  }  
 
   jumpTo(step) {
     this.setState({
@@ -160,6 +199,8 @@ class Game extends React.Component {
       status = 'Its a Draw!';
     } else {
       status = 'Next player: '+ (this.state.xIsNext?'X':'O');
+      /// agent plays next move
+      this.nextMove();
     }
 
     const moves = history.map((step, move) => {
