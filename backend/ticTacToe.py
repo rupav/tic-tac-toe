@@ -6,6 +6,7 @@ import pickle
 V = []
 states = []
 totalStates = 0
+alpha = 0.2
 
 board = [0]*9
 tiles = [0,1,2]
@@ -52,7 +53,7 @@ def switch_player(player):
 	else:
 		return 1
 
-def getListOfBlankTiles(board):
+def getListOfBlankTiles():
 	blankTiles = []
 	for i in range(len(board)):
 		if board[i] == 0:
@@ -91,7 +92,7 @@ def isWinner(board):
 
 	#no winner found if we are here!
 	#check if there is atleast 1 blank tile for nextMove!
-	if getListOfBlankTiles(board) is not []:
+	if getListOfBlankTiles() is not []:
 		return 0
 
 	return -1                #for draw!... np more move is possible
@@ -125,7 +126,6 @@ def create_all_states(board,player):
 		return 
 
 	for i in range(len(board)):
-		#print("i",i)
 		if board[i] == 0:
 			board[i] = player         #either 1 or 2
 			if board[:] not in states:
@@ -145,7 +145,7 @@ def greedyMove():
 	maxValue = V[maxIndex]
 	board[nextMove] = 0                 #setting again to zero until we find the real one!
 
-	for i in range(len(possibleMoves)):
+	for i in possibleMoves:
 		board[i] = 1
 		idx = states.index(board)
 		val = V[idx]
