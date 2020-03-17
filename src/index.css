@@ -8,10 +8,6 @@ ol, ul {
   list-style-type: square;
 }
 
-option {
-  
-}
-
 .board-row:after {
   clear: both;
   content: "";

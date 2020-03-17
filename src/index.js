@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+
+import TrainRLAgent from './training_form';
+
+
 import './index.css';
 
 const lines = [
@@ -233,10 +237,20 @@ class Game extends React.Component {
   }
 }
 
+class App extends React.Component{
+  render(){
+    return (
+      <div className="game">
+        <TrainRLAgent/>
+        <Game/>
+      </div>
+    );
+  }
+}
 
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <App />,
   document.getElementById('root')
 );

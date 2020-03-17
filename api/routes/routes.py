@@ -20,5 +20,6 @@ def next_move():
 @mod.route('/train', methods=['POST'])
 def train():
     req = request.get_json()
-    trainRL(req['alpha'], req['episodes'])
-    return 'Done', 201
+    print(req)
+    ts = trainRL(req['alpha'], req['episodes'])
+    return jsonify({'ts': ts}), 201

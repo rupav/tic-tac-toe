@@ -1,7 +1,6 @@
 from numpy import random
 import pickle
 import os
-from api.routes.helper import abspath
 
 states = []
 V = []
@@ -10,6 +9,10 @@ totalStates = 0
 board = [0,0,0,0,0,0,0,0,0]
 
 tiles = [0,1,2]
+
+def abspath(fname):
+    dir_ = os.path.dirname(os.path.abspath(__file__))
+    return dir_ + fname
 
 def initBoard():
 	for i in range(0,9):
@@ -137,7 +140,6 @@ def greedyMove():
 		board[i] = 0
 	return boardIndex,maxIndex
 
-
 def trainRL(alpha, episodes):
 
     global states
@@ -149,6 +151,7 @@ def trainRL(alpha, episodes):
     create_all_states(board,2)
     totalStates = len(states)
     print ("Total States: ", totalStates)
+    return totalStates
 
     numPlayer1Won = 0
     numPlayer2Won = 0
@@ -232,9 +235,10 @@ def trainRL(alpha, episodes):
     print ("Player 1 # of Wins  : ", numPlayer1Won)
     print ("Player 2 # of Wins  : ", numPlayer2Won)
     print ("         # of Draws : ", numDraws)
-    print("last_loss_episode: ", last_loss_episode)
+    print ("last_loss_episode: ", last_loss_episode)
 
     # dumping states using pickle and initialized value function!
+    print(totalStates)
     fname = "/temp/States.pickle"
     file_ = abspath(fname)
     with open(file_, "wb") as f:
@@ -244,3 +248,6 @@ def trainRL(alpha, episodes):
     with open(file_,"wb") as f:
         pickle.dump(V, f)
     print("Dumped!!!!!!!!!!!!!!!!!!!!!!!!")
+
+if __name__ == "__main__":
+    trainRL(0.1, 100)
