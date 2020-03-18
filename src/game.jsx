@@ -144,7 +144,7 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();    
     
-    const url = "http://localhost:5000/api/next_move";
+    const url = "https://rupav-tic-tac-toe.herokuapp.com/api/next_move";
     let mapped_squares = squares.map(square => {
       switch(square){
         case 'X': {

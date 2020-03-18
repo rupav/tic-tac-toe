@@ -8,7 +8,7 @@ const TrainRLAgent = () => {
             <Formik
                 initialValues = {{ alpha: "", episodes: "" }}
                 onSubmit = {(values, {setSubmitting}) => {
-                    const url = "http://localhost:5000/api/train"
+                    const url = "https://rupav-tic-tac-toe.herokuapp.com/api/train"
                     const params = {alpha: values.alpha/100, episodes: values.episodes}
                     console.log(params)
                     axios({
