@@ -1,8 +1,10 @@
 from flask import Blueprint, jsonify, request
 from api.routes.helper import get_states, get_value_function, greedyMove
 from api.routes.trainRL import trainRL
+from flask_cors import CORS
 
 mod = Blueprint('main', __name__)
+CORS(mod)
 
 @mod.route('/', methods=['GET'])
 def index():

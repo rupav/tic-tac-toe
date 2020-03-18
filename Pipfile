@@ -11,6 +11,7 @@ sqlalchemy = "*"
 requests = "*"
 python-dotenv = "*"
 pylint = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
