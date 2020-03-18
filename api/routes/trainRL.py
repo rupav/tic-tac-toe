@@ -151,7 +151,6 @@ def trainRL(alpha, episodes):
     create_all_states(board,2)
     totalStates = len(states)
     print ("Total States: ", totalStates)
-    return totalStates
 
     numPlayer1Won = 0
     numPlayer2Won = 0
