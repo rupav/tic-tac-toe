@@ -12,6 +12,7 @@ requests = "*"
 python-dotenv = "*"
 pylint = "*"
 flask-cors = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
