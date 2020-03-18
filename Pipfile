@@ -13,6 +13,7 @@ python-dotenv = "*"
 pylint = "*"
 flask-cors = "*"
 gunicorn = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.7"
