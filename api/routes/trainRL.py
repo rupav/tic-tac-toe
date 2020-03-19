@@ -20,19 +20,6 @@ def initBoard():
 	for i in range(0,9):
 		board[i] = 0
 
-def create_all_states(board,player):
-	won = hasWinner(board)
-	if won == 1 or won == -1:
-		return
-	for i in range(0,9):
-		if board[i] == 0:
-			board[i] = player
-			if board[:] not in states:
-				states.append(board[:])
-				V.append(determineValue(board,player))
-			create_all_states(board,switchPlayer(player))
-			board[i] = 0
-
 def switchPlayer(player):
 	if player == 1:
 		return 2
@@ -243,6 +230,3 @@ def trainRL(alpha, episodes):
     with open(file_,"wb") as f:
         pickle.dump(V, f)
     print("Dumped!")
-
-if __name__ == "__main__":
-    trainRL(0.1, 100)
