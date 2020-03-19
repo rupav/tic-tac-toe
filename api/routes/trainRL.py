@@ -2,7 +2,7 @@ from numpy import random
 import pickle
 import os
 
-from api.routes.helper import get_states
+from api.routes.helper import get_states, get_value_function
 
 states = []
 V = []
@@ -148,7 +148,8 @@ def trainRL(alpha, episodes):
     fname = "/temp/States.pickle"
     states = get_states(fname)
     global V
-    V = []
+    fname = "/temp/InitialValueFunction.pickle"
+    V = get_value_function(fname)
     totalStates = len(states)
     print ("Total States: ", totalStates)
 
