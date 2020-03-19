@@ -109,13 +109,19 @@ if __name__ == "__main__":
     file_ = abspath(fname)
     with open(file_, "wb") as f:
         pickle.dump(states, f)
+    print(file_)
     print("Dumped!")
+    print(os.path.exists(file_))
     
     print("Dumping Value Function!")
     fname = "/temp/InitialValueFunction.pickle"
     file_ = abspath(fname)
     with open(file_, "wb") as f:
         pickle.dump(V, f)
+    print(file_)
     print("Dumped!")
+
+    print(os.path.isdir("/temp"))
+    print(os.path.exists("/temp/States.pickle"))
 
     print("Initialization Complete!")
