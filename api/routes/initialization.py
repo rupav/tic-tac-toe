@@ -108,7 +108,7 @@ if __name__ == "__main__":
     fname = "/temp/States.pickle"
     file_ = abspath(fname)
     with open(file_, "wb") as f:
-        pickle.dump(V, f)
+        pickle.dump(states, f)
     print("Dumped!")
     
     print("Dumping Value Function!")
