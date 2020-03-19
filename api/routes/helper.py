@@ -9,6 +9,9 @@ def abspath(fname):
 
 def get_states(fname):
     file_ = abspath(fname)
+    print("Inside get_states")
+    print(file_)
+    print(os.path.exists(file_))
     with open(file_, "rb") as f:
         states = pickle.load(f)
         return states
