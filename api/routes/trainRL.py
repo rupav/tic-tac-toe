@@ -2,6 +2,8 @@ from numpy import random
 import pickle
 import os
 
+from api.routes.helper import get_states
+
 states = []
 V = []
 totalStates = 0
@@ -143,12 +145,10 @@ def greedyMove():
 def trainRL(alpha, episodes):
 
     global states
-    states = []
+    fname = "/temp/States.pickle"
+    states = get_states(fname)
     global V
     V = []
-    print("Initializing states and Value function!")
-    create_all_states(board,1)
-    create_all_states(board,2)
     totalStates = len(states)
     print ("Total States: ", totalStates)
 
@@ -182,9 +182,6 @@ def trainRL(alpha, episodes):
             print("Player ", player, "'s move: ")
 
             if player == 2:
-
-                # userPlay = int(input("Enter move [1-9]: "))
-                # userPlay = userPlay -1
                 userPlay = nextMoves[random.randint(0, countNextMoves)]
 
             else:
@@ -237,16 +234,14 @@ def trainRL(alpha, episodes):
     print ("last_loss_episode: ", last_loss_episode)
 
     # dumping states using pickle and initialized value function!
-    print(totalStates)
-    fname = "/temp/States.pickle"
-    file_ = abspath(fname)
-    with open(file_, "wb") as f:
-        pickle.dump(states, f)
+    print("Len of total states are: ", totalStates)
     fname = "/temp/ValueFunction.pickle"
     file_ = abspath(fname)
+    
+    print("Dumping Value Function")
     with open(file_,"wb") as f:
         pickle.dump(V, f)
-    print("Dumped!!!!!!!!!!!!!!!!!!!!!!!!")
+    print("Dumped!")
 
 if __name__ == "__main__":
     trainRL(0.1, 100)

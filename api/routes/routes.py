@@ -14,7 +14,7 @@ def index():
 def next_move():
     req = request.get_json()
     states = get_states("/temp/States.pickle")
-    V = get_value_function("/temp/ValueFunction.pickle")
+    V = get_value_function("/temp/ValueFunction.pickle") or get_value_function("/temp/InitialValueFunction.pickle")
     board = req['board']
     nm, _ = greedyMove(board, states, V)
     return jsonify({'next_move': nm}), 200

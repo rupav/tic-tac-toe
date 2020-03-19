@@ -15,9 +15,13 @@ def get_states(fname):
     
 def get_value_function(fname):
     file_ = abspath(fname)
-    with open(file_, "rb") as f:
-        V = pickle.load(f)
-        return V
+    try:
+        with open(file_, "rb") as f:
+            V = pickle.load(f)
+            return V
+    except:
+        print(fname, "not found")
+        return False
 
 def getListOfBlankTiles(board):
 	blankTiles = []
