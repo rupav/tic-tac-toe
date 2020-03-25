@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios';
-import defaultParams from './axiosConfig'
+
+import defaultParams from '../axiosConfig'
 
 const lines = [
   [0, 1, 2],
@@ -244,11 +245,7 @@ class Game extends React.Component {
 
 const mapStateToProps = (state, props) => {
   const app = state.app
-  return {
-    V: app.V,
-    alpha: app.alpha,
-    episodes: app.episodes
-  }
+  return app
 }
 
 export default connect(mapStateToProps)(Game)

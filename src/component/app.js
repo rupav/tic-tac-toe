@@ -1,9 +1,9 @@
 import React from 'react';
 
-import TrainRLAgent from './training_form';
+import TrainRLAgent from './form/training';
 import Game from './game';
 
-import './index.css';
+import '../index.css'
 
 class App extends React.Component{
     render(){

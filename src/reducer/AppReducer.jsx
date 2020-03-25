@@ -1,4 +1,4 @@
-
+import ActionType from '../constant/ActionType'
 
 const initial = {
     V: null,
@@ -8,7 +8,7 @@ const initial = {
 
 const app = (state = initial, action) => {
     switch(action.type){
-        case 'UPDATE_V':
+        case ActionType.App.UPDATE_V:
             return {...state, ...action.payload}
     }
     return state

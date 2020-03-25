@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from './reducer'
 
-import App from './app';
+import App from './component/app';
 
 const store = createStore(rootReducer)
 

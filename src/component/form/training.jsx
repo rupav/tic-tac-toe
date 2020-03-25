@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { Formik, Form, Field } from 'formik'
-import defaultParams from './axiosConfig'
+
+import defaultParams from '../../axiosConfig'
+import ActionType from '../../constant/ActionType'
 
 const TrainRLAgent = (props) => {
     return(
@@ -19,7 +21,7 @@ const TrainRLAgent = (props) => {
                     }).then((resp) => {
                         console.log(resp.data)
                         const action = {
-                            type: 'UPDATE_V',
+                            type: ActionType.App.UPDATE_V,
                             payload: resp.data
                         }
                         setSubmitting(false)
@@ -57,9 +59,7 @@ const TrainRLAgent = (props) => {
 
 const mapStateToProps = (state, props) => {
     const app = state.app
-    return {
-        V: app.V
-    }
+    return app
 }
 
 export default connect(mapStateToProps)(TrainRLAgent)
