@@ -17,8 +17,8 @@
 .env.production.local
 .env
 *.pyc
-/api/**/temp
-.vscode
+# /api/**/temp
+./vscode
 
 npm-debug.log*
 yarn-debug.log*
