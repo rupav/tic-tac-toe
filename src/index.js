@@ -1,25 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducer from './reducer'
 
-import TrainRLAgent from './training_form';
-import Game from './game';
+import App from './app';
 
-import './index.css';
+const store = createStore(rootReducer)
 
-class App extends React.Component{
-  render(){
-    return (
-      <div className="game">
-        <TrainRLAgent/>
-        <Game/>
-      </div>
-    );
-  }
-}
-
-// ========================================
-
-ReactDOM.render(
-  <App />,
+render (
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );

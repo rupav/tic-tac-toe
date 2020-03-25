@@ -230,3 +230,5 @@ def trainRL(alpha, episodes):
     with open(file_,"wb") as f:
         pickle.dump(V, f)
     print("Dumped!")
+
+    return V

@@ -1,14 +1,15 @@
-import React from 'react';
-import axios from 'axios';
-import { Formik, Form, Field } from 'formik';
+import React from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { Formik, Form, Field } from 'formik'
 
-const TrainRLAgent = () => {
+const TrainRLAgent = (props) => {
     return(
         <div>
             <Formik
                 initialValues = {{ alpha: "", episodes: "" }}
                 onSubmit = {(values, {setSubmitting}) => {
-                    const url = "https://rupav-tic-tac-toe.herokuapp.com/api/train"
+                    const url = "http://localhost:5000/api/train"
                     const params = {alpha: values.alpha/100, episodes: values.episodes}
                     console.log(params)
                     axios({
@@ -21,6 +22,12 @@ const TrainRLAgent = () => {
                         }
                     }).then((resp) => {
                         console.log(resp.data)
+                        const action = {
+                            type: 'UPDATE_V',
+                            payload: resp.data
+                        }
+                        props.dispatch(action)
+                        console.log('Action dispatched!')
                     }).catch((error) => {
                         console.log(error)
                     });
@@ -49,4 +56,11 @@ const TrainRLAgent = () => {
     );
 }
 
-export default TrainRLAgent
+const mapStateToProps = (state, props) => {
+    const app = state.app
+    return {
+        V: app.V
+    }
+}
+
+export default connect(mapStateToProps)(TrainRLAgent)

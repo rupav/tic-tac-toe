@@ -13,8 +13,8 @@ def index():
 @mod.route('/next_move', methods=['POST'])
 def next_move():
     req = request.get_json()
+    V = req['V'] or get_value_function("/temp/InitialValueFunction.pickle")
     states = get_states("/temp/States.pickle")
-    V = get_value_function("/temp/ValueFunction.pickle") or get_value_function("/temp/InitialValueFunction.pickle")
     board = req['board']
     nm, _ = greedyMove(board, states, V)
     return jsonify({'next_move': nm}), 200
@@ -22,5 +22,5 @@ def next_move():
 @mod.route('/train', methods=['POST'])
 def train():
     req = request.get_json()
-    trainRL(req['alpha'], req['episodes'])
-    return 'Training Done!', 201
+    V = trainRL(req['alpha'], req['episodes'])
+    return jsonify({'V': V, 'alpha': req['alpha'], 'episodes': req['episodes']}), 201
