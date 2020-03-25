@@ -22,11 +22,13 @@ const TrainRLAgent = (props) => {
                             type: 'UPDATE_V',
                             payload: resp.data
                         }
+                        setSubmitting(false)
                         resetForm()
                         props.dispatch(action)
                         console.log('Action dispatched!')
                     }).catch((error) => {
                         console.log(error)
+                        setSubmitting(false)
                         resetForm()
                     });
                 }}
