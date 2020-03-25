@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios';
+import defaultParams from './axiosConfig'
 
 const lines = [
   [0, 1, 2],
@@ -145,7 +146,6 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();    
     
-    const url = "https://rupav-tic-tac-toe.herokuapp.com/api/next_move";
     let mapped_squares = squares.map(square => {
       switch(square){
         case 'X': {
@@ -166,14 +166,11 @@ class Game extends React.Component {
         V: this.props.V
       }
       console.log(this.props.alpha)
+      console.log(process.env.REACT_APP_API_URI)
       axios({
-        method: 'post',
-        url: url,
-        crossdomain: true,
-        data: params,
-        headers: {
-            "Content-type": "application/json"
-        }
+        ...defaultParams,
+        url: '/next_move',
+        data: params
       }).then((resp) => {
         console.log(resp.data.next_move);
         squares[resp.data.next_move] = this.state.xIsNext?'X':'O';

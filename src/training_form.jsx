@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { Formik, Form, Field } from 'formik'
+import defaultParams from './axiosConfig'
 
 const TrainRLAgent = (props) => {
     return(
@@ -9,17 +10,12 @@ const TrainRLAgent = (props) => {
             <Formik
                 initialValues = {{ alpha: "", episodes: "" }}
                 onSubmit = {(values, {setSubmitting}) => {
-                    const url = "https://rupav-tic-tac-toe.herokuapp.com/api/train"
                     const params = {alpha: values.alpha/100, episodes: values.episodes}
                     console.log(params)
                     axios({
-                        method: 'post',
-                        url: url,
-                        crossdomain: true,
-                        data: params,
-                        headers: {
-                            "Content-type": "application/json"
-                        }
+                        ...defaultParams,
+                        url: '/train',
+                        data: params
                     }).then((resp) => {
                         console.log(resp.data)
                         const action = {
