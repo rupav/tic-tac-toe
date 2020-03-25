@@ -9,7 +9,7 @@ const TrainRLAgent = (props) => {
         <div>
             <Formik
                 initialValues = {{ alpha: "", episodes: "" }}
-                onSubmit = {(values, {setSubmitting}) => {
+                onSubmit = {(values, {setSubmitting, resetForm}) => {
                     const params = {alpha: values.alpha/100, episodes: values.episodes}
                     console.log(params)
                     axios({
@@ -22,12 +22,13 @@ const TrainRLAgent = (props) => {
                             type: 'UPDATE_V',
                             payload: resp.data
                         }
+                        resetForm()
                         props.dispatch(action)
                         console.log('Action dispatched!')
                     }).catch((error) => {
                         console.log(error)
+                        resetForm()
                     });
-                    setSubmitting = true
                 }}
             >
                 {({ isSubmitting }) => (
