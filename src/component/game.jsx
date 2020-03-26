@@ -132,6 +132,12 @@ class Game extends React.Component {
     if (calculateWinner(squares) || squares[i]) {
       return ;
     }
+    
+    /// if x is next continue, since it is the chance of computer to play
+    if(this.state.xIsNext){
+      return;
+    }
+    
     squares[i] = this.state.xIsNext?'X':'O';
     this.setState({
       history: history.concat([{
