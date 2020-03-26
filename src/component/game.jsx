@@ -237,6 +237,9 @@ class Game extends React.Component {
           <select>
             {moves}
           </select>
+          <button className="modal-open" onClick={this.props.handleModal}>
+            Train
+          </button>          
         </div>
       </div>
     );
