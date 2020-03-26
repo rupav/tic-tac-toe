@@ -9,7 +9,6 @@ import ActionType from '../../constant/ActionType'
 const TrainRLAgent = (props) => {
     return(
         <div>
-            <span className="modal-close" onClick={props.handleModal}>x</span>
             <Formik
                 initialValues = {{ alpha: "", episodes: "" }}
                 onSubmit = {(values, {setSubmitting, resetForm}) => {
@@ -37,20 +36,29 @@ const TrainRLAgent = (props) => {
                 }}
             >
                 {({ isSubmitting }) => (
-                    <Form>
+                    <Form className="form">
+                        <label htmlFor="alpha" style={{ display: "block" }}>
+                            Alpha
+                        </label>
                         <Field
+                            className="input"
                             type="number"
                             name="alpha"
-                            placeholder="Alpha"
+                            placeholder=""
                         />
+                        <label htmlFor="episodes" style={{ display: "block" }}>
+                            Episode Count
+                        </label>                        
                         <Field
+                            className="input"
                             type="number"
                             name="episodes"
-                            placeholder="Episodes count"
+                            placeholder=""
                         />
-                        <button type="submit" disabled={isSubmitting}>
+                        <button className="form-button" type="submit" disabled={isSubmitting}>
                             Submit
                         </button>
+                        <button className="modal-close" type="button" onClick={props.handleModal}>Close</button>
                     </Form>
                 )}            
             </Formik>

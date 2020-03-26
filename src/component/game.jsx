@@ -215,7 +215,7 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move:
+        'Move #' + move:
         'Restart';
       return (
         <option key={move} onClick={() => this.jumpTo(move)}>
@@ -237,9 +237,9 @@ class Game extends React.Component {
           <select>
             {moves}
           </select>
-          <button className="modal-open" onClick={this.props.handleModal}>
-            Train
-          </button>          
+            <button className="modal-open" onClick={this.props.handleModal}>
+              Train
+            </button>
         </div>
       </div>
     );
