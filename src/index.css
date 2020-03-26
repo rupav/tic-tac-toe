@@ -198,3 +198,8 @@ label {
   margin: 10px 20px;
   margin-right: 40px;
 }
+
+.input-feedback {
+  color: red;
+  margin-top: .25rem;
+}
