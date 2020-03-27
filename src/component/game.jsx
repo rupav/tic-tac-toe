@@ -95,18 +95,20 @@ class Board extends React.Component {
       let row = []
       for(let j=0; j<3; j++){
         id_ = 3*i + j;
-        row.push(<td>{this.renderSquare(id_, z[id_])}</td>)
+        row.push(<td key={id_}>{this.renderSquare(id_, z[id_])}</td>)
       }
-      table.push(<tr className="board-row">{row}</tr>)
+      table.push(<tr key={i} className="board-row">{row}</tr>)
     }
     return table
   }
 
   render() {
     return (
-      <div>
-        {this.createTable()}
-      </div>
+      <table>
+        <tbody>
+          {this.createTable()}
+        </tbody>
+      </table>
     );
   }
 }
@@ -115,6 +117,7 @@ class Game extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      showOptions: false, 
       history: [{
         squares: Array(9).fill(null),
       }],
@@ -137,9 +140,10 @@ class Game extends React.Component {
     if(this.state.xIsNext){
       return;
     }
-    
+
     squares[i] = this.state.xIsNext?'X':'O';
     this.setState({
+      ...this.state,
       history: history.concat([{
         squares: squares,
       }]),
@@ -182,6 +186,7 @@ class Game extends React.Component {
         console.log(resp.data.next_move);
         squares[resp.data.next_move] = this.state.xIsNext?'X':'O';
         this.setState({
+          ...this.state,
           history: history.concat([{
             squares: squares,
           }]),
@@ -199,15 +204,37 @@ class Game extends React.Component {
 
   jumpTo(step) {
     this.setState({
+      ...this.state,
       stepNumber: step,
       xIsNext: (step % 2) === 0,
     })
   }
 
+  showOptionModal = () => {
+    this.setState({
+      ...this.state,
+      showOptions: true
+    })
+  }
+
+  closeOptionModal = () => {
+    this.setState({
+      ...this.state,
+      showOptions: false
+    })
+  }  
+
+  handleOptionsModal = () => {
+    (!this.state.showOptions) ? this.showOptionModal() : this.closeOptionModal();
+    return;
+  }  
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const modalClassName = this.state.showOptions ? "modal display-block" : "modal display-none";
+    
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
@@ -224,9 +251,9 @@ class Game extends React.Component {
         'Move #' + move:
         'Restart';
       return (
-        <option key={move} onClick={() => this.jumpTo(move)}>
-          {desc}
-        </option>
+        <li key={move}>
+          <button className="options" onClick={() => this.jumpTo(move)}>{desc}</button>
+        </li>
       );
     });
 
@@ -239,13 +266,25 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div className="game-status">{status}</div>
-          <select>
-            {moves}
-          </select>
+          <div className="center-align">
+            <div className="game-status">{status}</div>
+          </div>
+          <div className="center-align">
+            <button className="modal-open options-modal-open" onClick={this.handleOptionsModal}>Go to</button>
+          </div>
+          <div className={modalClassName}>
+            <section className="modal-main">
+              <ol>
+                {moves}
+              </ol>
+              <button className="modal-close" type="button" onClick={this.handleOptionsModal}>Close</button>
+            </section>
+          </div>
+          <div className="center-align">
             <button className="modal-open" onClick={this.props.handleModal}>
               Train
             </button>
+          </div>
         </div>
       </div>
     );

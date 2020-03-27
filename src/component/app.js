@@ -9,7 +9,8 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      show: false
+      show: false,
+      showOptions: false
     }
   }
 
@@ -27,13 +28,33 @@ class App extends React.Component{
     })
   }
 
+  showOptionModal = () => {
+    this.setState({
+      ...this.state,
+      showOptions: true
+    })
+  }
+
+  closeOptionModal = () => {
+    this.setState({
+      ...this.state,
+      showOptions: false
+    })
+  }
+
   handleModal = () => {
     (this.state.show) ? this.closeModal() : this.showModal();
     return;
   }
 
+  handleOptionsModal = () => {
+    (this.state.showOptions) ? this.showOptionModal() : this.closeOptionModal();
+    return;
+  }
+
   render(){
     const modalClassName = this.state.show ? "modal display-block" : "modal display-none";
+    const optionsModalClassName = this.state.showOptions ? "modal display-block" : "modal display-none";
     return (
       <div>
         <div className={modalClassName}>
@@ -42,7 +63,7 @@ class App extends React.Component{
           </section>
         </div>
         <div className="game">
-          <Game handleModal={this.handleModal}/>
+          <Game handleModal={this.handleModal} handleOptionsModal={this.handleOptionsModal} modalClassName={optionsModalClassName}/>
         </div>
       </div>
     );
