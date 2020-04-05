@@ -18,6 +18,7 @@ const TrainRLAgent = (props) => {
                     axios.defaults.timeout = 360000
                     axios({
                         ...defaultParams,
+                        timeout: 360000,
                         url: '/train',
                         data: params
                     }).then((resp) => {
@@ -43,7 +44,7 @@ const TrainRLAgent = (props) => {
                         .required("Required!"),
                     episodes: Yup.number()
                         .min(1)
-                        .max(15000)
+                        .max(5000)
                         .required("Required!")
                 })}
             >
