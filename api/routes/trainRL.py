@@ -100,7 +100,7 @@ def updateBoard(_board, player, index):
   return False
 
 def updateEstimateValueOfS(sPrime, s, alpha):
-  V[s] = V[s] + alpha*(V[sPrime] - V[s])       #RJ problem --- why not chosen gamma?// since we know next state, gamma = 1, also no reward 
+  V[s] = V[s] + alpha*(V[sPrime] - V[s])
 
 def getListOfBlankTiles(board):
 	blanks = []
