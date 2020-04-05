@@ -15,6 +15,7 @@ const TrainRLAgent = (props) => {
                 onSubmit = {(values, {setSubmitting, resetForm}) => {
                     const params = {alpha: values.alpha/100, episodes: values.episodes}
                     console.log(params)
+                    axios.defaults.timeout = 360000
                     axios({
                         ...defaultParams,
                         url: '/train',

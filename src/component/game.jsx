@@ -178,6 +178,7 @@ class Game extends React.Component {
       }
       console.log(this.props.alpha)
       console.log(process.env.REACT_APP_API_URI)
+      axios.defaults.timeout = 360000
       axios({
         ...defaultParams,
         url: '/next_move',
